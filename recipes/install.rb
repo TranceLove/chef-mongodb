@@ -76,7 +76,7 @@ end
 # install
 package node[:mongodb][:package_name] do
   options packager_opts
-  action :install
+  action [:install,:upgrade]
   version node[:mongodb][:package_version]
 end
 
