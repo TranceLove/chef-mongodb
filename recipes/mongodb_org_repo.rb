@@ -27,9 +27,9 @@ case node['platform_family']
 when 'debian'
   # Adds the repo: http://www.mongodb.org/display/DOCS/Ubuntu+and+Debian+packages
   apt_repository 'mongodb' do
-    uri "http://downloads-distro.mongodb.org/repo/#{node[:mongodb][:apt_repo]}"
-    distribution 'dist'
-    components ['10gen']
+    uri "http://repo.mongodb.org/apt/ubuntu"
+    distribution "#{node['lsb']['codename']}/mongodb-org/3.0"
+    components ['multiverse']
     keyserver 'hkp://keyserver.ubuntu.com:80'
     key '7F0CEB10'
     action :add
@@ -38,7 +38,7 @@ when 'debian'
 when 'rhel', 'fedora'
   yum_repository 'mongodb' do
     description 'mongodb RPM Repository'
-    baseurl "http://downloads-distro.mongodb.org/repo/redhat/os/#{node['kernel']['machine']  =~ /x86_64/ ? 'x86_64' : 'i686'}"
+    baseurl "http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.0/#{node['kernel']['machine']  =~ /x86_64/ ? 'x86_64' : 'i686'}"
     action :create
     gpgcheck false
     enabled true
